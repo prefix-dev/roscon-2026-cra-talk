@@ -1,0 +1,24 @@
+{
+  "name": "slidev-theme-tufte",
+  "version": "0.1.0",
+  "description": "A Tufte CSS-inspired theme for Slidev: cream paper, italic display serifs, restrained code blocks, red-brown accents.",
+  "keywords": [
+    "slidev-theme",
+    "slidev",
+    "tufte"
+  ],
+  "engines": {
+    "slidev": ">=0.48.0"
+  },
+  "private": true,
+  "dependencies": {
+    "@fontsource/ibm-plex-mono": "^5.2.7"
+  },
+  "slidev": {
+    "colorSchema": "light",
+    "highlighter": "shiki",
+    "defaults": {
+      "transition": "slide-left"
+    }
+  }
+}

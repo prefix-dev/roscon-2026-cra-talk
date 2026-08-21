@@ -1,0 +1,44 @@
+/* Moranga (Medium) — display face for headings, served from fonts.prefix.dev */
+@font-face {
+  font-family: "Moranga";
+  src: url("https://fonts.prefix.dev/moranga/MorangaLight/font.ttf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* IBM Plex Mono — bundled via @fontsource so the deck doesn't depend on the
+ * presenter's machine having Plex installed locally or on a network round-trip. */
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/400-italic.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+
+/* ET Book — Tufte's original typeface, served from the official et-book repo via jsDelivr */
+@font-face {
+  font-family: "et-book";
+  src: url("https://cdn.jsdelivr.net/gh/edwardtufte/et-book@gh-pages/et-book/et-book-roman-line-figures/et-book-roman-line-figures.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "et-book";
+  src: url("https://cdn.jsdelivr.net/gh/edwardtufte/et-book@gh-pages/et-book/et-book-display-italic-old-style-figures/et-book-display-italic-old-style-figures.woff") format("woff");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "et-book";
+  src: url("https://cdn.jsdelivr.net/gh/edwardtufte/et-book@gh-pages/et-book/et-book-bold-line-figures/et-book-bold-line-figures.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "et-book-roman-old-style";
+  src: url("https://cdn.jsdelivr.net/gh/edwardtufte/et-book@gh-pages/et-book/et-book-roman-old-style-figures/et-book-roman-old-style-figures.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}

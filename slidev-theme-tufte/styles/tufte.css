@@ -1,0 +1,424 @@
+/* Tufte CSS-inspired theme for Slidev
+ * Adapted from https://edwardtufte.github.io/tufte-css/
+ */
+
+:root {
+  --tufte-bg: #fffff8;
+  --tufte-text: #111111;
+  --tufte-muted: #555555;
+  --tufte-rule: #333333;
+  --tufte-accent: #c14a26; /* Tufte's red-brown for marks */
+  --tufte-yellow: #e0a800; /* bullet marker line */
+  --tufte-link: #1b1b1b;
+  --tufte-code-bg: #f5f5e9;
+  --tufte-serif: "et-book", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --tufte-display: "Moranga", "et-book", Georgia, serif; /* headings */
+  --tufte-mono: "IBM Plex Mono", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+/* Page background and base typography */
+.slidev-layout,
+.slidev-page {
+  background-color: var(--tufte-bg) !important;
+  background-image: none !important;
+  color: var(--tufte-text);
+  font-family: var(--tufte-serif);
+  font-size: 0.95rem;
+  line-height: 1.45;
+  padding: 1.6rem 2.6rem;
+}
+
+/* The cover slide should also use the cream background */
+.slidev-layout.cover,
+.slidev-layout.intro {
+  background-color: var(--tufte-bg) !important;
+  background-image: none !important;
+  color: var(--tufte-text);
+}
+
+/* Headings: serif, no bold, slight letter-spacing */
+.slidev-layout h1,
+.slidev-layout h2,
+.slidev-layout h3,
+.slidev-layout h4,
+.slidev-layout h5,
+.slidev-layout h6 {
+  font-family: var(--tufte-display);
+  color: var(--tufte-text);
+  font-weight: 500;
+  font-style: normal;
+  letter-spacing: 0.01em;
+  -webkit-text-fill-color: currentColor;
+  background: none !important;
+}
+
+.slidev-layout h1 {
+  font-size: 2rem;
+  line-height: 1.1;
+  margin-bottom: 0.75rem;
+  font-weight: 400;
+}
+
+.slidev-layout h2 {
+  font-size: 1.5rem;
+  line-height: 1.2;
+  margin-top: 1.2rem;
+  margin-bottom: 0.6rem;
+  font-weight: 400;
+}
+
+.slidev-layout h3 {
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.slidev-layout h4,
+.slidev-layout h5,
+.slidev-layout h6 {
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
+}
+
+/* Body text */
+.slidev-layout p,
+.slidev-layout li {
+  font-family: var(--tufte-serif);
+  font-size: 1rem;
+  line-height: 1.45;
+  color: var(--tufte-text);
+}
+
+/* Emphasis */
+.slidev-layout em,
+.slidev-layout i {
+}
+.slidev-layout strong,
+.slidev-layout b {
+  font-weight: 600;
+}
+
+/* Links — Tufte uses inherit color with a thin offset underline rather
+ * than a border, so the underline sits below descenders cleanly. */
+.slidev-layout a,
+.slidev-layout a:link,
+.slidev-layout a:visited {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.1em;
+  text-decoration-thickness: 0.05em;
+  background: none;
+  -webkit-text-fill-color: currentColor;
+}
+.slidev-layout a:hover {
+  color: var(--tufte-accent);
+  text-decoration-color: var(--tufte-accent);
+}
+
+/* Lists — ported from edwardtufte/tufte-css. UnoCSS preflight strips
+ * list-style and display, so restore them explicitly. The hanging-indent
+ * (negative margin + matching padding) puts the bullet text in line with
+ * the heading text, with the marker hanging in the slide's left padding. */
+.slidev-layout ol,
+.slidev-layout ul {
+  font-size: 1rem;
+  line-height: 1.45;
+  padding-inline-start: 1.2em;
+  margin-inline-start: -1.2em;
+}
+/* Hollow markers (Butterick: "more subtle than solid bullets") and a
+ * smaller, muted marker color. ol uses old-style figures from the
+ * et-book companion face for the indices. */
+.slidev-layout ul {
+  list-style: none;
+}
+.slidev-layout ol {
+  list-style: decimal outside;
+}
+.slidev-layout li {
+  display: list-item;
+  padding-left: 0;
+}
+/* Yellow line marker for unordered lists — a short horizontal rule
+ * hanging in the left padding, in place of the hollow circle bullet. */
+.slidev-layout ul > li {
+  position: relative;
+}
+.slidev-layout ul > li::before {
+  content: "";
+  position: absolute;
+  left: -1.2em;
+  top: 0.72em;
+  width: 0.7em;
+  height: 2px;
+  background: var(--tufte-yellow);
+}
+.slidev-layout ol > li::marker {
+  color: var(--tufte-muted);
+  font-size: 0.85em;
+}
+.slidev-layout ol > li::marker {
+  font-family: "et-book-roman-old-style", var(--tufte-serif);
+  font-size: 0.95em;
+}
+.slidev-layout li:not(:first-child) {
+  margin-top: 0.7rem;
+}
+
+/* Blockquotes — Tufte style: italic, sourced */
+.slidev-layout blockquote {
+  border-left: 2px solid var(--tufte-rule);
+  padding: 0.2em 0 0.2em 1em;
+  margin: 1em 0;
+  color: var(--tufte-muted);
+}
+
+/* Horizontal rule — thin, restrained */
+.slidev-layout hr {
+  border: none;
+  border-top: 1px solid var(--tufte-rule);
+  margin: 1.5rem 0;
+}
+
+/* Tables — Tufte tables are minimal: no vertical rules, sparse horizontals */
+.slidev-layout table {
+  border-collapse: collapse;
+  font-family: var(--tufte-serif);
+  font-size: 1rem;
+  margin: 1rem 0;
+  width: auto;
+}
+.slidev-layout table th {
+  font-weight: 400;
+  border-bottom: 1px solid var(--tufte-rule);
+  border-top: 1px solid var(--tufte-rule);
+  padding: 0.4rem 0.9rem;
+  text-align: left;
+}
+.slidev-layout table td {
+  border: none;
+  padding: 0.35rem 0.9rem;
+}
+.slidev-layout table tr:last-child td {
+  border-bottom: 1px solid var(--tufte-rule);
+}
+
+/* Inline code — Tufte style: monospace, slightly smaller, no background chip,
+ * sits in the text rather than as a pill. The default theme ships a chip
+ * via .slidev-layout :not(pre) > code; we override it with !important since
+ * theme styles use higher specificity. */
+.slidev-layout :not(pre) > code,
+.slidev-layout code {
+  font-family: var(--tufte-mono) !important;
+  font-size: 0.85em !important;
+  line-height: 1.42 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  color: inherit !important;
+}
+/* Block code — Tufte keeps code restrained: same cream as the page,
+ * a thin left rule, no rounded chrome. */
+.slidev-layout pre,
+.slidev-layout pre code,
+.slidev-layout .shiki,
+.slidev-layout .slidev-code {
+  font-family: var(--tufte-mono) !important;
+  background-color: transparent !important;
+  font-size: 0.72rem;
+  line-height: 1.42;
+  border-radius: 0;
+}
+.slidev-layout pre {
+  padding: 0.4rem 0;
+  border-left: none;
+  background-color: transparent;
+}
+/* Block code inside a pre keeps inherited line-height; inline code
+ * inside a paragraph stays inline, no pre-style padding leak. */
+.slidev-layout p code,
+.slidev-layout li code,
+.slidev-layout h1 code,
+.slidev-layout h2 code,
+.slidev-layout h3 code,
+.slidev-layout h4 code {
+  font-size: 0.85em;
+}
+
+/* Keyboard keys — match the restrained aesthetic */
+.slidev-layout kbd {
+  font-family: var(--tufte-mono);
+  background: var(--tufte-bg);
+  border: 1px solid var(--tufte-rule);
+  border-radius: 2px;
+  padding: 0.05em 0.4em;
+  font-size: 0.85em;
+  box-shadow: none;
+}
+
+/* Marks (Slidev v-mark) — use Tufte's red-brown */
+.slidev-vclick-target,
+.slidev-layout mark {
+  color: inherit;
+}
+
+/* The cover/title slide centerpiece */
+.slidev-layout.cover h1,
+.slidev-layout.intro h1 {
+  font-size: 2.6rem;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Constrain content height — overflow on long slides scrolls within */
+.slidev-layout {
+  overflow: auto;
+}
+
+/* Tighten paragraph spacing inside content-heavy slides */
+.slidev-layout p {
+  margin: 0.4rem 0;
+}
+.slidev-layout ul,
+.slidev-layout ol {
+  margin: 0.4rem 0;
+}
+
+/* Remove gradient / fancy heading overrides from slide-scope <style> blocks
+ * by neutralizing the text-fill trick */
+.slidev-layout h1,
+.slidev-layout h2 {
+  -webkit-text-fill-color: var(--tufte-text);
+  -moz-text-fill-color: var(--tufte-text);
+}
+
+/* Footer / footnotes */
+.slidev-layout .footnotes {
+  font-size: 0.85rem;
+  color: var(--tufte-muted);
+}
+
+/* Tufte utility classes — ported from edwardtufte/tufte-css.
+ * Use as: <span class="newthought">…</span>, <p class="subtitle">…</p>, etc. */
+
+/* Subtitle: italic display line, used under a title heading */
+.slidev-layout p.subtitle,
+.slidev-layout .subtitle {
+  font-size: 1.4rem;
+  line-height: 1.1;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+/* New-thought lead-in: small caps + slight upsize, the Tufte hallmark
+ * for opening sentences. */
+.slidev-layout .newthought {
+  font-variant: small-caps;
+  font-size: 1.2em;
+  letter-spacing: 0.03em;
+}
+
+/* Sans utility — "Gill Sans"-flavored, used for tables and asides */
+.slidev-layout .sans {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
+  letter-spacing: 0.03em;
+}
+
+/* Danger / accent text */
+.slidev-layout .danger {
+  color: var(--tufte-accent);
+}
+
+/* Figure + caption — Tufte floats the caption to the right of its figure,
+ * keeping the image narrower than the text measure. */
+.slidev-layout figure {
+  padding: 0;
+  border: 0;
+  font: inherit;
+  vertical-align: baseline;
+  max-width: 100%;
+  margin: 0 0 1.5rem 0;
+}
+.slidev-layout figcaption {
+  float: right;
+  clear: right;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 0.85rem;
+  line-height: 1.3;
+  font-style: italic;
+  color: var(--tufte-muted);
+  max-width: 40%;
+}
+.slidev-layout figure.fullwidth figcaption {
+  margin-right: 0;
+  max-width: none;
+  float: none;
+}
+
+/* Fullwidth utility for tables / figures that should break the measure */
+.slidev-layout .fullwidth {
+  max-width: 100%;
+  width: 100%;
+  clear: both;
+}
+
+/* Code inside headings — Tufte sizes it down to 0.80em */
+.slidev-layout h1 > code,
+.slidev-layout h2 > code,
+.slidev-layout h3 > code {
+  font-size: 0.8em !important;
+}
+
+/* Slide numbers and small UI text */
+.slidev-page footer,
+.slidev-page .slidev-page-number {
+  font-family: var(--tufte-serif);
+  color: var(--tufte-muted);
+}
+
+/* Drop the dark theme accents from seriph by softening borders */
+.slidev-layout .border-main,
+.slidev-layout [class*="border-primary"] {
+  border-color: var(--tufte-rule) !important;
+}
+
+/* ---------------------------------------------------------------------------
+ * size bump: scale everything ~15% bigger so the room can read it.
+ * Localized at the bottom so upstream Tufte values stay untouched above.
+ * ------------------------------------------------------------------------- */
+.slidev-layout,
+.slidev-page {
+  font-size: 1.1rem;
+}
+.slidev-layout h1               { font-size: 2rem; }
+.slidev-layout h2               { font-size: 1.75rem; }
+.slidev-layout h3               { font-size: 1.4rem; }
+.slidev-layout p,
+.slidev-layout li,
+.slidev-layout ol,
+.slidev-layout ul               { font-size: 1.15rem; }
+.slidev-layout blockquote       { font-size: 1.15rem; }
+.slidev-layout table            { font-size: 1.15rem; }
+.slidev-layout pre,
+.slidev-layout pre code,
+.slidev-layout .shiki,
+.slidev-layout .slidev-code     { font-size: 0.85rem; }
+.slidev-layout.cover h1,
+.slidev-layout.intro h1         { font-size: 3.2rem; }
+.slidev-layout p.subtitle,
+.slidev-layout .subtitle        { font-size: 1.6rem; }
+.slidev-layout .footnotes       { font-size: 1rem; }
+.slidev-layout figcaption       { font-size: 1rem; }
+
+/* Inline code: give it a subtle chip so it actually reads as code, not just
+ * a font swap. Block code (inside <pre>) stays untouched. */
+.slidev-layout :not(pre) > code {
+  background: var(--tufte-code-bg) !important;
+  padding: 0.08em 0.4em !important;
+  border-radius: 4px !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  font-size: 0.9em !important;
+}

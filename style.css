@@ -1,0 +1,65 @@
+/* Deck-level overrides.
+ *
+ * The Tufte theme pins `.slidev-layout p` and `li` to 1rem so body copy stays
+ * even across slides. That's right for prose, but it also silently swallows
+ * Tailwind's `text-sm` / `text-xs`, which is how the denser slides (the
+ * scorecard, the FOSDEM results table) keep their secondary text out of the
+ * footer. Re-assert the utilities with enough specificity to win.
+ */
+
+.slidev-layout .text-xs,
+.slidev-layout .text-xs p,
+.slidev-layout .text-xs li,
+.slidev-layout p.text-xs,
+.slidev-layout li.text-xs {
+  font-size: 0.72rem !important;
+  line-height: 1.4 !important;
+}
+
+.slidev-layout .text-sm,
+.slidev-layout .text-sm p,
+.slidev-layout .text-sm li,
+.slidev-layout p.text-sm,
+.slidev-layout li.text-sm {
+  font-size: 0.82rem !important;
+  line-height: 1.4 !important;
+}
+
+/* Tables on the dense slides: tighten rows and shrink cells so a 5-row
+ * comparison fits above the footer without hand-tuned margins. */
+.slidev-layout .table-tight table {
+  font-size: 0.78rem;
+}
+
+.slidev-layout .table-tight th,
+.slidev-layout .table-tight td {
+  padding-top: 0.28rem !important;
+  padding-bottom: 0.28rem !important;
+  line-height: 1.3 !important;
+}
+
+.slidev-layout .table-tight code {
+  font-size: 0.92em;
+}
+
+/* Callout box used for the "here's the catch" asides. Keeps its own spacing
+ * so it never has to be positioned against the footer by eye. */
+.slidev-layout .callout {
+  background: var(--tufte-code-bg);
+  border-radius: 4px;
+  padding: 0.7rem 0.9rem;
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.slidev-layout .callout p {
+  font-size: 0.82rem !important;
+  line-height: 1.4 !important;
+  margin: 0;
+}
+
+/* Footer sits at 0.6rem from the bottom; reserve room so long trailing
+ * paragraphs can't run underneath it. */
+.slidev-layout {
+  padding-bottom: 2.4rem !important;
+}
