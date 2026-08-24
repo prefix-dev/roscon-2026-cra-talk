@@ -34,12 +34,6 @@ Wolf Vollprecht and Ruben Arts at
 
 <div class="subtitle mt-6">ROSCon 2026 · Thursday 24 September</div>
 
-<!--
-10 minutes, two speakers. Goal is understanding, not fear.
-Everyone should leave knowing: what the CRA asks, what an SBOM is,
-what VEX is for, and where ROS packaging stands today.
--->
-
 ---
 
 # What is the CRA?
@@ -55,12 +49,6 @@ If your robot has software and a data connection, it is in scope.
 
 </div>
 
-<!--
-One breath. It is a product regulation like machinery or RoHS: CE mark,
-conformity assessment, market surveillance. The next three slides are the
-three ideas that matter. One sentence each, keep moving.
--->
-
 ---
 layout: center
 class: text-center
@@ -68,13 +56,7 @@ class: text-center
 
 # Secure by design
 
-<div class="subtitle mt-4">Essential requirements, met before you ship. Now part of CE marking.</div>
-
-<!--
-Part of CE: Art. 28 EU declaration of conformity, Arts. 29-30 the CE
-marking attests CRA conformity. Same New Legislative Framework as the
-Machinery Regulation. If they have done CE before, this is familiar.
--->
+<div class="subtitle mt-4">No known vulnerabilities, secure defaults, encryption, signed updates.<br>Met before you ship — now part of CE marking.</div>
 
 ---
 layout: center
@@ -85,13 +67,6 @@ class: text-center
 
 <div class="subtitle mt-4">Security updates for a support period you declare. At least five years.</div>
 
-<!--
-Art. 13(8): the support period reflects the expected time in use, and is at
-least five years unless the product is expected to be used for less than that.
-A robot is never expected to be used for less than five years.
-This is the one that bites robotics. We come back to it with the 10-year slide.
--->
-
 ---
 layout: center
 class: text-center
@@ -100,7 +75,6 @@ class: text-center
 # Manufacturer is liable
 
 <div class="subtitle mt-4">Open source, proprietary, you are responsible for all aspects of your product's security.</div>
-
 
 ---
 
@@ -120,8 +94,8 @@ class: text-center
 <div class="text-3xl font-mono">11 Dec 2027</div>
 <div v-click>
 
-**Everything else.** SBOM, essential requirements, technical documentation,
-CE marking, a declared support period.
+**Everything else.** SBOM, the security requirements, technical documentation,
+a declared support period. **No CRA conformity, no CE mark, no EU market.**
 
 </div>
 
@@ -138,16 +112,6 @@ Early warning in 24 h, full notification in 72 h. <span class="text-sm text-[var
 which forwards to your national CSIRT. One report, once.
 
 </div>
-
-<!--
-This is not a 2027 problem, phase one is live.
-If asked: not reportable = ordinary bugs, routine patches, unexploited CVEs.
-The final report deadline for a vulnerability is 14 days from when a fix is
-available, not from awareness. Registration runs through EU Login.
-CHECK THE WEEK OF THE TALK: as of late June 2026 the SRP was not yet live.
-If it still isn't on 24 Sep, say so: the deadline is fixed, the tool is not.
-Helpdesk: cra-srp-helpdesk@enisa.europa.eu
--->
 
 ---
 
@@ -168,15 +132,6 @@ Helpdesk: cra-srp-helpdesk@enisa.europa.eu
 
 </div>
 
-<!--
-Risk assessment: the load-bearing document. It decides which essential
-requirements apply to your product. No assessment, no conformity. Most people
-assume the SBOM is the centre of the CRA. It isn't.
-SBOM: covering "at the very least top-level dependencies".
-Vulnerability handling: monitor, remediate, disclose and distribute updates.
-Support period: declared, public, and honoured. Minimum five years.
--->
-
 ---
 layout: center
 class: text-center
@@ -192,12 +147,6 @@ Top tier of fines: **15M EUR or 2.5%** of worldwide annual turnover,
 whichever is higher. <span class="text-[var(--tufte-muted)]">(Art. 64)</span>
 
 </div>
-
-<!--
-Upstream projects may count as open-source stewards, with lighter duties.
-That does not transfer any of your duties back to them. nav2 is not going
-to file your ENISA report.
--->
 
 ---
 
@@ -231,9 +180,9 @@ It lets a scanner answer one question: am I affected by this CVE?
   "components": [
     {
       "type": "library",
-      "name": "libcurl",
-      "version": "8.5.0",
-      "purl": "pkg:conda/libcurl@8.5.0",
+      "name": "libcurl4",
+      "version": "8.5.0-2",
+      "purl": "pkg:deb/ubuntu/libcurl4@8.5.0-2",
       "licenses": [
         { "license": { "id": "curl" } }
       ]
@@ -254,14 +203,11 @@ library cannot be matched up.
 
 </div>
 
-<!--
-Keep this concrete. The JSON is there so nobody has to imagine what an SBOM is.
-Point at the purl line specifically.
--->
-
 ---
 
 # And VEX? It stops the drowning.
+
+<div class="text-sm text-[var(--tufte-muted)] mt-1">VEX, the <strong>V</strong>ulnerability <strong>E</strong>xploitability e<strong>X</strong>change.</div>
 
 <DocLink href="https://github.com/openvex/spec" label="OpenVEX" />
 
@@ -282,7 +228,7 @@ Almost none of them are exploitable in *your* product.
     {
       "vulnerability": { "name": "CVE-2024-XXXX" },
       "products": [
-        { "@id": "pkg:conda/my-robot@2.1.0" }
+        { "@id": "pkg:deb/ubuntu/my-robot@2.1.0" }
       ],
       "status": "not_affected",
       "justification":
@@ -314,11 +260,6 @@ discover** VEX documents. This is an open industry problem, not a solved one.
 </div>
 
 </div>
-
-<!--
-Source: VEX Industry Collaboration WG, FOSDEM 2026.
-Their headline finding was that discovery and distribution are unsolved.
--->
 
 ---
 layout: center
@@ -366,24 +307,6 @@ available for 10 years after you issue it. <span class="text-sm text-[var(--tuft
 
 </div>
 
-<!--
-This is the slide people will remember. Let the numbers sit for a beat
-before clicking. It is just arithmetic, and it is unarguable.
--->
-
----
-layout: center
-class: text-center
----
-
-# Why ROS makes this hard
-
-<div class="subtitle mt-4">Four reasons.</div>
-
-<!--
-HANDOVER candidate. Pause, then four quick slides.
--->
-
 ---
 layout: center
 class: text-center
@@ -393,11 +316,6 @@ class: text-center
 
 <div class="subtitle mt-4">Linux, ROS, Python, C++, fleet backend, microcontrollers.</div>
 
-<!--
-Different tools, different formats, different identifiers. None of them
-agree on what a component is called.
--->
-
 ---
 layout: center
 class: text-center
@@ -405,12 +323,7 @@ class: text-center
 
 # No lockfile in the classic path
 
-<div class="subtitle mt-4">Rebuild that image in 2029. From what?</div>
-
-<!--
-rosdep maps keys to whatever the distro has today. Nothing records what you
-actually got. apt on a Tuesday is not a reproducible input.
--->
+<div class="subtitle mt-4">No single file describes the environment you actually run.<br>Rebuild that image in 2029, from what?</div>
 
 ---
 layout: center
@@ -419,14 +332,7 @@ class: text-center
 
 # Multiple identifiers
 
-<div class="subtitle mt-4"><code>nav2</code> · <code>ros-jazzy-nav2</code> · <code>navigation2</code> · the CVE name</div>
-
-<!--
-The ROS package name, the apt package name, the GitHub repo name, and the
-name in the vulnerability database. Same code, no shared key.
-Correlation between your SBOM and the CVE database fails silently: the
-scanner says zero, and zero is wrong.
--->
+<div class="subtitle mt-4"><code>nav2</code> - <code>ros-jazzy-nav2</code> - <code>navigation2</code> - the CVE name</div>
 
 ---
 layout: center
@@ -436,13 +342,6 @@ class: text-center
 # Vendor patches are invisible
 
 <div class="subtitle mt-4">Not upstream. Not a new version. Same name in every SBOM.</div>
-
-<!--
-Patch Fast DDS or nav2 and you ship something no scanner can tell apart from
-upstream. Straight from the Yocto Project's own CRA analysis:
-"What is the product name and version of the patched package?
- The current answer: it is both A, same version."
--->
 
 ---
 
@@ -457,7 +356,7 @@ Zephyr sensors and a Python service, then tried to do CRA-style vulnerability ma
 
 </div>
 
-<div class="mt-4 table-tight">
+<div class="mt-4 table-grow">
 
 | Step | Result |
 |---|---|
@@ -471,38 +370,26 @@ Zephyr sensors and a Python service, then tried to do CRA-style vulnerability ma
 
 </div>
 
-<div v-click class="callout mt-4">
-
-Then the analysis was still wrong. The conversion **dropped the Linux kernel's CPEs**,
-so zero CVEs were reported for the kernel.
-
-</div>
-
-<!--
-Slides are CC-BY-4.0, credit her clearly.
-The kernel line is the punchline. A green dashboard that means nothing.
--->
-
 ---
 
 # Where the packaging options stand
 
-<div class="table-tight mt-5">
+<div class="table-grow mt-5">
 
-| | Rebuild it in 2029 | Build-time SBOM | Vuln tracking | Support story |
-|---|---|---|---|---|
-| **Debian / `rosdep`** | ✗ no lockfile | ~ deb metadata | ✓ mature tracker | ✓ but on Debian's clock |
-| **Docker** | ~ digest pinning | ~ inferred from layers | ~ image scanning | ✗ image is not a commitment |
-| **Nix** | ✓✓ strongest | ~ thin tooling | ~ improving | ~ no product framing |
-| **Yocto** | ✓ recipes + patches | ✓✓ SPDX by default | ✓ `cve-check` | ✓ **4-year LTS** |
-| **conda / Pixi** | ✓✓ `pixi.lock` | ~ via Syft on the env | ~ CPE-not-PURL gap | ~ channel-based |
+| | Rebuild it in 2029 | Build-time SBOM | Vuln tracking |
+|---|---|---|---|
+| **Debian / `rosdep`** | ✗ no lockfile | ~ deb metadata | ✓ mature tracker |
+| **Docker** | ~ digest pinning | ~ inferred from layers | ~ image scanning |
+| **Nix** | ✓✓ strongest | ✓ tooling available | ~ improving but complex |
+| **Yocto** | ✓ recipes + patches | ✓✓ SPDX by default | ✓ `cve-check` |
+| **conda / Pixi** | ✓✓ `pixi.lock` | ~ feasible not implemented | ~ solutions rolling out |
 
 </div>
 
 <div v-click class="mt-5 text-sm">
 
 **Nobody is finished.** Yocto has the best SBOM story and admits vendor patches break it.
-Nix has the best reproducibility and the thinnest tooling. Conda has a real
+Nix has the best reproducibility but thin tooling. Conda has a real
 cross-language lockfile and an incomplete PURL story.
 
 </div>
@@ -513,27 +400,45 @@ The consistent finding at FOSDEM: **a good SBOM starts from a lockfile.**
 
 </div>
 
-<!--
-Vendor-neutral on purpose. Naming Pixi's own gap out loud is what makes
-the rest of the row credible.
--->
+---
+
+# Ideas for the ecosystem
+
+<div class="mt-4 max-w-3xl">
+
+Yocto, Zephyr and Erlang/OTP are showing what ecosystem-level answers
+look like. ROS can do the same, and some pieces are close.
+
+</div>
+
+<div class="mt-8">
+
+<v-clicks>
+
+- **Build-time SBOMs** from `colcon`, so every workspace gets one for free
+- **Stable identifiers**: one PURL per ROS package, across apt, conda and source
+- **A steward** who can issue advisories, like Erlang's foundation becoming a CVE Numbering Authority
+- **Richer metadata**: licenses, origins, `rosdep` mappings
+
+</v-clicks>
+
+</div>
 
 ---
 
-# What's being built
+# What you have to do
 
 <div class="grid grid-cols-2 gap-10 mt-8">
 
 <div>
 
-### In the tooling
+### Today
 
 <v-clicks>
 
-- **PURLs for conda packages**, `conda/ceps#63`
-- **Syft** now reads `conda-meta`, merged
-- **Sigstore attestations** for published artifacts, CEP 27
-- **`cargo-auditable`**, so Rust deps stop hiding inside binaries
+- **Know your reporting path**: EU Login, ENISA's Single Reporting Platform, your national CSIRT
+- **Write down your support period**, at least five years
+- **Pin what you ship**, so you can rebuild it in five years
 
 </v-clicks>
 
@@ -541,13 +446,14 @@ the rest of the row credible.
 
 <div>
 
-### In the ecosystems
+### By 11 Dec 2027
 
 <v-clicks>
 
-- Yocto, Zephyr, SwiftPM, BuildStream and pkgconf are all adding **build-time SBOMs**
-- Erlang/OTP ships source SBOMs, OSV scanning and OpenVEX, and their foundation became a **CNA**
-- Metadata is being curated at scale by Maven Heaven and Nixpkgs Clarity
+- **A risk assessment**, it decides which requirements apply
+- **An SBOM**, machine-readable, from what you actually ship
+- **Vulnerability handling**: monitor, patch, disclose, free of charge
+- **CE conformity** with the technical documentation to back it
 
 </v-clicks>
 
@@ -555,52 +461,10 @@ the rest of the row credible.
 
 </div>
 
-<div v-click class="mt-10 pt-5 border-t border-[var(--tufte-rule)] border-opacity-20">
-
-There is no ROS entry in that second list yet.
-
-</div>
-
-<!--
-Erlang is the template worth pointing at: the foundation became a CNA so the
-ecosystem could issue and map CVEs. Directly applicable to OSRA.
--->
-
----
-layout: center
-class: text-center
----
-
-# What ROS needs to figure out together
-
-<div class="text-left max-w-2xl mx-auto mt-10">
-
-<v-clicks>
-
-- **Build-time SBOMs** from `colcon`, rather than bolted on afterwards
-- **Stable identifiers**, one PURL per ROS package, across apt, conda and source
-- **A steward** who can issue advisories. Erlang's foundation became a CNA. Ours could.
-- **Better metadata**: licenses, origins, `rosdep` mappings
-
-</v-clicks>
-
-</div>
-
-<div v-click class="mt-14 text-lg">
-
-Two things you can start today. **Write down your support period**, and
-**pin something you can rebuild in five years.**
-
-</div>
-
-<div v-click class="mt-10 text-sm text-[var(--tufte-muted)]">
+<div v-click class="mt-10 pt-5 border-t border-[var(--tufte-rule)] border-opacity-20 text-sm text-[var(--tufte-muted)] text-center">
 
 Slides, sources and the full research notes:
 <a href="https://github.com/prefix-dev/roscon-2026-cra-talk">github.com/prefix-dev/roscon-2026-cra-talk</a>
 
 </div>
 
-<!--
-Land on the two actions. They cost nothing and both are genuinely useful
-regardless of which packaging tool anyone picks.
--->

@@ -42,6 +42,19 @@
   font-size: 0.92em;
 }
 
+/* Grown variant for the packaging matrix: fill the measure, larger type. */
+.slidev-layout .table-grow table {
+  font-size: 1.25rem;
+  width: 100%;
+}
+
+.slidev-layout .table-grow th,
+.slidev-layout .table-grow td {
+  padding-top: 0.55rem !important;
+  padding-bottom: 0.55rem !important;
+  line-height: 1.4 !important;
+}
+
 /* Callout box used for the "here's the catch" asides. Keeps its own spacing
  * so it never has to be positioned against the footer by eye. */
 .slidev-layout .callout {
