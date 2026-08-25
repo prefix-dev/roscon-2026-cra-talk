@@ -56,16 +56,16 @@ class: text-center
 
 # Secure by design
 
-<div class="subtitle mt-4">No known vulnerabilities, secure defaults, encryption, signed updates.<br>Met before you ship — now part of CE marking.</div>
+<div class="subtitle mt-4">No known exploitable vulnerabilities, secure defaults, encryption, signed updates.<br>Meet the requirements before shipping and document them for CE marking.</div>
 
 ---
 layout: center
 class: text-center
 ---
 
-# Software security for the product full lifecycle
+# Security throughout the product lifecycle
 
-<div class="subtitle mt-4">Security updates for a support period you declare. At least five years.</div>
+<div class="subtitle mt-4">You declare a support period and provide security updates for it. At least five years.</div>
 
 ---
 layout: center
@@ -74,7 +74,7 @@ class: text-center
 
 # Manufacturer is liable
 
-<div class="subtitle mt-4">Open source, proprietary, you are responsible for all aspects of your product's security.</div>
+<div class="subtitle mt-4">Whether the software is open source or proprietary, you are responsible for your product's security.</div>
 
 ---
 
@@ -94,8 +94,8 @@ class: text-center
 <div class="text-3xl font-mono">11 Dec 2027</div>
 <div v-click>
 
-**Everything else.** SBOM, the security requirements, technical documentation,
-a declared support period. **No CRA conformity, no CE mark, no EU market.**
+**Remaining obligations.** SBOM, security requirements, technical documentation
+and a declared support period. Products need CRA conformity to carry a CE mark and enter the EU market.
 
 </div>
 
@@ -103,7 +103,7 @@ a declared support period. **No CRA conformity, no CE mark, no EU market.**
 
 <div v-click class="mt-10 pt-5 border-t border-[var(--tufte-rule)] border-opacity-20">
 
-This covers products **already on the market**, not just new ones. <span class="text-sm text-[var(--tufte-muted)]">(Art. 69(3))</span>
+This also covers products **already on the market**. <span class="text-sm text-[var(--tufte-muted)]">(Art. 69(3))</span>
 
 **What:** an actively exploited vulnerability or a severe incident.
 Early warning in 24 h, full notification in 72 h. <span class="text-sm text-[var(--tufte-muted)]">(Art. 14)</span>
@@ -123,7 +123,7 @@ which forwards to your national CSIRT. One report, once.
 
 <v-clicks>
 
-- **A risk assessment**, and it decides everything else
+- **A risk assessment** that determines which other requirements apply
 - **An SBOM**, machine-readable
 - **Vulnerability handling**, free of charge
 - **A support period**, declared and public
@@ -150,7 +150,7 @@ whichever is higher. <span class="text-[var(--tufte-muted)]">(Art. 64)</span>
 
 ---
 
-# What is an SBOM, actually?
+# What is an SBOM?
 
 <DocLink href="https://github.com/package-url/purl-spec" label="PURL spec" />
 
@@ -158,14 +158,14 @@ whichever is higher. <span class="text-[var(--tufte-muted)]">(Art. 64)</span>
 
 <div>
 
-An ingredients list for your software, written so a machine can read it.
-It lets a scanner answer one question: am I affected by this CVE?
+A machine-readable inventory of your software components.
+It helps a scanner answer: does this CVE affect my product?
 
 <v-clicks>
 
 - Two formats dominate: **SPDX** and **CycloneDX**
 - The CRA mandates neither, only "commonly used, machine-readable"
-- Writing one is not the hard part. **Naming things consistently** is.
+- Generating the file is straightforward. **Consistent package names** are harder.
 
 </v-clicks>
 
@@ -197,15 +197,14 @@ It lets a scanner answer one question: am I affected by this CVE?
 
 <div v-click class="mt-4 text-sm">
 
-That `purl` line is what makes the entry useful. A PURL is one identifier for a
-package across every ecosystem. Without it, two SBOMs describing the same
-library cannot be matched up.
+The `purl` identifies the package, version and packaging ecosystem. Consistent
+PURLs let tools match components between SBOMs and vulnerability databases.
 
 </div>
 
 ---
 
-# And VEX? It stops the drowning.
+# VEX filters vulnerability results
 
 <div class="text-sm text-[var(--tufte-muted)] mt-1">VEX, the <strong>V</strong>ulnerability <strong>E</strong>xploitability e<strong>X</strong>change.</div>
 
@@ -213,8 +212,8 @@ library cannot be matched up.
 
 <div class="mt-4">
 
-Scan a ROS environment and you get hundreds of CVEs.
-Almost none of them are exploitable in *your* product.
+A scan of a ROS environment can return hundreds of CVEs.
+Almost none are exploitable in *your* product.
 
 </div>
 
@@ -244,16 +243,16 @@ Almost none of them are exploitable in *your* product.
 
 <v-clicks>
 
-- A signed, machine-readable statement saying **"we looked at this, and here is why it doesn't apply"**
-- It turns an unreadable scanner dump into a short list of things that matter
-- The CRA never uses the word *VEX*, but "handle vulnerabilities effectively" is not achievable without something like it
+- A signed, machine-readable record of whether a vulnerability affects a product, with the reason
+- It reduces scanner output to the vulnerabilities that need action
+- The CRA does not mention *VEX*. In practice, effective vulnerability handling needs an equivalent record.
 
 </v-clicks>
 
 <div v-click class="mt-6 text-sm text-[var(--tufte-muted)]">
 
-Still immature. The formats compete, and there is **no agreed way to publish or
-discover** VEX documents. This is an open industry problem, not a solved one.
+VEX is still immature. Formats compete, and there is **no agreed way to publish or
+discover** VEX documents.
 
 </div>
 
@@ -302,7 +301,7 @@ An industrial robot on a factory floor.
 The CRA lets you *consider* your upstream's support window when you set yours.
 It does not let you **cap** your obligation at it.
 
-**That decade-wide gap is yours.** Every security update has to stay
+**You must cover the remaining years.** Every security update has to stay
 available for 10 years after you issue it. <span class="text-sm text-[var(--tufte-muted)]">(Art. 13(8), 13(9))</span>
 
 </div>
@@ -332,20 +331,20 @@ class: text-center
 
 # Multiple identifiers
 
-<div class="subtitle mt-4"><code>nav2</code> - <code>ros-jazzy-nav2</code> - <code>navigation2</code> - the CVE name</div>
+<div class="subtitle mt-4"><code>nav2</code>, <code>ros-jazzy-nav2</code>, <code>navigation2</code>, the name in a CVE</div>
 
 ---
 layout: center
 class: text-center
 ---
 
-# Vendor patches are invisible
+# Vendor patches can be invisible
 
-<div class="subtitle mt-4">Not upstream. Not a new version. Same name in every SBOM.</div>
+<div class="subtitle mt-4">A downstream patch may keep the upstream name and version, so the SBOM cannot distinguish it.</div>
 
 ---
 
-# Somebody already tried this
+# A three-SBOM test
 
 <DocLink href="https://fosdem.org/2026/schedule/event/7YG9H7-embedded-product-with-three-sboms/" label="FOSDEM 2026" />
 
@@ -388,15 +387,15 @@ Zephyr sensors and a Python service, then tried to do CRA-style vulnerability ma
 
 <div v-click class="mt-5 text-sm">
 
-**Nobody is finished.** Yocto has the best SBOM story and admits vendor patches break it.
-Nix has the best reproducibility but thin tooling. Conda has a real
-cross-language lockfile and an incomplete PURL story.
+Each option still has gaps. Yocto has the best SBOM support, but vendor patches can break it.
+Nix has the best reproducibility but limited tooling. Conda has a
+cross-language lockfile and incomplete PURL support.
 
 </div>
 
 <div v-click class="mt-3 text-sm text-[var(--tufte-muted)]">
 
-The consistent finding at FOSDEM: **a good SBOM starts from a lockfile.**
+The FOSDEM example reached a practical conclusion: **a good SBOM starts from a lockfile.**
 
 </div>
 
@@ -406,8 +405,8 @@ The consistent finding at FOSDEM: **a good SBOM starts from a lockfile.**
 
 <div class="mt-4 max-w-3xl">
 
-Yocto, Zephyr and Erlang/OTP are showing what ecosystem-level answers
-look like. ROS can do the same, and some pieces are close.
+Yocto and Zephyr already generate build metadata. The Erlang Ecosystem
+Foundation is becoming a CVE Numbering Authority. ROS could adopt similar infrastructure.
 
 </div>
 
@@ -415,12 +414,57 @@ look like. ROS can do the same, and some pieces are close.
 
 <v-clicks>
 
-- **Build-time SBOMs** from `colcon`, so every workspace gets one for free
-- **Stable identifiers**: one PURL per ROS package, across apt, conda and source
+- **Build-time SBOMs** from `colcon`, generated for every workspace
+- **Stable identifiers**: a ROS-level PURL linked to the apt, conda or source artifact
 - **A steward** who can issue advisories, like Erlang's foundation becoming a CVE Numbering Authority
 - **Richer metadata**: licenses, origins, `rosdep` mappings
 
 </v-clicks>
+
+</div>
+
+---
+
+# A PURL type for ROS?
+
+<DocLink href="https://github.com/package-url/purl-spec/blob/main/docs/types/maintain-purl-types.md" label="Proposing a PURL type" />
+
+<div class="grid grid-cols-2 gap-10 mt-8">
+
+<div>
+
+### ROS package
+
+`pkg:ros/nav2_controller@1.2.3?distro=jazzy`
+
+A proposed identity based on `package.xml` and the ROS distribution.
+
+</div>
+
+<div v-click>
+
+### Installed artifact
+
+`pkg:deb/ubuntu/ros-jazzy-nav2-controller@1.2.3-1`
+
+The package and version installed on the product.
+
+</div>
+
+</div>
+
+<div v-click class="callout mt-8">
+
+These identify different things. A ROS PURL would name the ROS package. The
+Debian or conda PURL would name the artifact that was shipped. Vendor patches
+also need a distinct version, hash or SBOM pedigree.
+
+</div>
+
+<div v-click class="mt-6 text-sm text-[var(--tufte-muted)]">
+
+The proposal only works if ROS defines canonical rules for names, versions,
+distribution qualifiers and repository lookup.
 
 </div>
 
@@ -450,7 +494,7 @@ look like. ROS can do the same, and some pieces are close.
 
 <v-clicks>
 
-- **A risk assessment**, it decides which requirements apply
+- **A risk assessment** that determines which requirements apply
 - **An SBOM**, machine-readable, from what you actually ship
 - **Vulnerability handling**: monitor, patch, disclose, free of charge
 - **CE conformity** with the technical documentation to back it
