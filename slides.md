@@ -56,7 +56,7 @@ class: text-center
 
 # Secure by design
 
-<div class="subtitle mt-4">No known exploitable vulnerabilities, secure defaults, encryption, signed updates.<br>Meet the requirements before shipping and document them for CE marking.</div>
+<div class="subtitle mt-4">Based on risk: no known exploitable vulnerabilities, secure defaults, protected data, secure updates.<br>Meet the requirements before shipping and document them for CE marking.</div>
 
 ---
 layout: center
@@ -65,7 +65,7 @@ class: text-center
 
 # Security throughout the product lifecycle
 
-<div class="subtitle mt-4">You declare a support period and provide security updates for it. At least five years.</div>
+<div class="subtitle mt-4">Set the support period from expected use and provide security updates throughout.<br>Usually at least five years; shorter only when expected use is shorter.</div>
 
 ---
 layout: center
@@ -103,13 +103,14 @@ and a declared support period. Products need CRA conformity to carry a CE mark a
 
 <div v-click class="mt-10 pt-5 border-t border-[var(--tufte-rule)] border-opacity-20">
 
-This also covers products **already on the market**. <span class="text-sm text-[var(--tufte-muted)]">(Art. 69(3))</span>
+**Reporting** also covers products already on the market. Other requirements apply
+to them only after a substantial modification. <span class="text-sm text-[var(--tufte-muted)]">(Art. 69(2), 69(3))</span>
 
 **What:** an actively exploited vulnerability or a severe incident.
-Early warning in 24 h, full notification in 72 h. <span class="text-sm text-[var(--tufte-muted)]">(Art. 14)</span>
+Early warning in 24 h, follow-up in 72 h, final report later. <span class="text-sm text-[var(--tufte-muted)]">(Art. 14)</span>
 
 **Where:** ENISA's <a href="https://www.enisa.europa.eu/topics/product-security/single-reporting-platform-srp">Single Reporting Platform</a>,
-which forwards to your national CSIRT. One report, once.
+which routes it to the coordinating CSIRT. One path, with staged updates.
 
 </div>
 
@@ -164,7 +165,8 @@ It helps a scanner answer: does this CVE affect my product?
 <v-clicks>
 
 - Two formats dominate: **SPDX** and **CycloneDX**
-- The CRA mandates neither, only "commonly used, machine-readable"
+- The CRA mandates neither; it requires at least top-level dependencies
+- The SBOM must be documented, but need not be published
 - Generating the file is straightforward. **Consistent package names** are harder.
 
 </v-clicks>
@@ -212,14 +214,14 @@ PURLs let tools match components between SBOMs and vulnerability databases.
 
 <div class="mt-4">
 
-A scan of a ROS environment can return hundreds of CVEs.
-Almost none are exploitable in *your* product.
+A scan of a ROS environment can return hundreds of CVE matches.
+A component and version match does not establish exploitability.
 
 </div>
 
 <div class="grid grid-cols-2 gap-8 mt-6">
 
-<CodeWindow title="vex.openvex.json">
+<CodeWindow title="OpenVEX excerpt">
 
 ```json {lines: true}
 {
@@ -243,9 +245,9 @@ Almost none are exploitable in *your* product.
 
 <v-clicks>
 
-- A signed, machine-readable record of whether a vulnerability affects a product, with the reason
+- A machine-readable record of whether a vulnerability affects a product, with the reason
 - It reduces scanner output to the vulnerabilities that need action
-- The CRA does not mention *VEX*. In practice, effective vulnerability handling needs an equivalent record.
+- The CRA does not mention *VEX*. VEX is one way to document these decisions.
 
 </v-clicks>
 
@@ -284,11 +286,11 @@ Jazzy runs from May 2024 to **May 2029**.
 
 <div v-click>
 
-<div class="text-5xl font-mono">10-15 years</div>
+<div class="text-5xl font-mono">10 years</div>
 
 <div class="mt-3">
 
-An industrial robot on a factory floor.
+If that is how long you expect your robot to remain in use.
 
 </div>
 
@@ -298,11 +300,12 @@ An industrial robot on a factory floor.
 
 <div v-click class="mt-14 max-w-3xl mx-auto text-left">
 
-The CRA lets you *consider* your upstream's support window when you set yours.
-It does not let you **cap** your obligation at it.
+The CRA lets you *consider* upstream support, but your support period must reflect
+how long the product is expected to remain in use.
 
-**You must cover the remaining years.** Every security update has to stay
-available for 10 years after you issue it. <span class="text-sm text-[var(--tufte-muted)]">(Art. 13(8), 13(9))</span>
+A five-year ROS distribution does not shorten a ten-year product obligation.
+Each security update must remain available for at least 10 years, or for the
+rest of the support period if that is longer. <span class="text-sm text-[var(--tufte-muted)]">(Art. 13(8), 13(9))</span>
 
 </div>
 
@@ -364,7 +367,7 @@ Zephyr sensors and a Python service, then tried to do CRA-style vulnerability ma
 | SPDX 2.3 from Zephyr <span class="text-[var(--tufte-muted)]">(tag:value)</span> | ❌ format unsupported |
 | Convert via `pyspdxtools` | ❌ no luck |
 | Convert via `syft` | ⚠️ experimental, worked |
-| Yocto SPDX 3.0 to CycloneDX | ❌ **no working tool exists** |
+| Yocto SPDX 3.0 to CycloneDX | ❌ no converter found in this test |
 | Downgrade to SPDX 2.2, loop-convert, merge | ✅ finally |
 
 </div>
@@ -375,27 +378,27 @@ Zephyr sensors and a Python service, then tried to do CRA-style vulnerability ma
 
 <div class="table-grow mt-5">
 
-| | Rebuild it in 2029 | Build-time SBOM | Vuln tracking |
+| | Environment identity | SBOM path | Vulnerability data |
 |---|---|---|---|
-| **Debian / `rosdep`** | ✗ no lockfile | ~ deb metadata | ✓ mature tracker |
-| **Docker** | ~ digest pinning | ~ inferred from layers | ~ image scanning |
-| **Nix** | ✓✓ strongest | ✓ tooling available | ~ improving but complex |
-| **Yocto** | ✓ recipes + patches | ✓✓ SPDX by default | ✓ `cve-check` |
-| **conda / Pixi** | ✓✓ `pixi.lock` | ~ feasible not implemented | ~ solutions rolling out |
+| **Debian / `rosdep`** | no standard environment lock | external tooling | distro trackers |
+| **Docker / BuildKit** | image digest | SBOM attestation | image scanners |
+| **Nix** | lockfile + derivation closure | external tooling | external tooling |
+| **Yocto** | pinned layers + recipes | SPDX by default | `cve-check` |
+| **conda / Pixi** | `pixi.lock` | external tooling | external tooling |
 
 </div>
 
 <div v-click class="mt-5 text-sm">
 
-Each option still has gaps. Yocto has the best SBOM support, but vendor patches can break it.
-Nix has the best reproducibility but limited tooling. Conda has a
-cross-language lockfile and incomplete PURL support.
+These tools solve different layers of the problem. The CRA does not require a
+lockfile or reproducible build; both help produce and maintain an accurate SBOM.
 
 </div>
 
 <div v-click class="mt-3 text-sm text-[var(--tufte-muted)]">
 
-The FOSDEM example reached a practical conclusion: **a good SBOM starts from a lockfile.**
+In the FOSDEM test, conversion lost package names and CPEs. Dependency-Track then
+reported no Linux kernel CVEs. **Format conversion can silently damage matching.**
 
 </div>
 
@@ -405,8 +408,8 @@ The FOSDEM example reached a practical conclusion: **a good SBOM starts from a l
 
 <div class="mt-4 max-w-3xl">
 
-Yocto and Zephyr already generate build metadata. The Erlang Ecosystem
-Foundation is becoming a CVE Numbering Authority. ROS could adopt similar infrastructure.
+Yocto and Zephyr already generate build metadata. ROS has pieces of the same
+infrastructure, but no shared workflow.
 
 </div>
 
@@ -415,8 +418,8 @@ Foundation is becoming a CVE Numbering Authority. ROS could adopt similar infras
 <v-clicks>
 
 - **Build-time SBOMs** from `colcon`, generated for every workspace
-- **Stable identifiers**: a ROS-level PURL linked to the apt, conda or source artifact
-- **A steward** who can issue advisories, like Erlang's foundation becoming a CVE Numbering Authority
+- **Stable identifiers**: a ROS-level PURL linked to the Debian, conda or source package
+- **A named steward** for vulnerability intake, advisories and CVE coordination
 - **Richer metadata**: licenses, origins, `rosdep` mappings
 
 </v-clicks>
@@ -463,8 +466,8 @@ also need a distinct version, hash or SBOM pedigree.
 
 <div v-click class="mt-6 text-sm text-[var(--tufte-muted)]">
 
-The proposal only works if ROS defines canonical rules for names, versions,
-distribution qualifiers and repository lookup.
+The proposal only works if ROS defines canonical rules for names, versions and
+how ROS distributions are represented.
 
 </div>
 
@@ -481,8 +484,8 @@ distribution qualifiers and repository lookup.
 <v-clicks>
 
 - **Know your reporting path**: EU Login, ENISA's Single Reporting Platform, your national CSIRT
-- **Write down your support period**, at least five years
-- **Pin what you ship**, so you can rebuild it in five years
+- **Set your support period** from expected use, normally at least five years
+- **Pin and archive what you ship**, so rebuilding does not depend on live repositories
 
 </v-clicks>
 
