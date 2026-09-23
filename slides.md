@@ -40,41 +40,48 @@ Wolf Vollprecht and Ruben Arts at
 
 <DocLink href="https://eur-lex.europa.eu/eli/reg/2024/2847/oj" label="Reg. (EU) 2024/2847" />
 
-<div class="mt-8 max-w-3xl">
+<div class="grid grid-cols-[1fr_1.3fr] gap-10 items-center mt-8">
 
-The **Cyber Resilience Act** is an EU regulation, in force since December 2024.
+<div>
+
+The **Cyber Resilience Act** is an EU regulation, adopted in 2024 and applying
+in stages from September 2026.
 It applies to any **product with digital elements** placed on the EU market.
 
 If your robot has software and a data connection, it is in scope.
 
 </div>
 
----
-layout: center
-class: text-center
----
+<img src="/cra-robot-eu.png" class="w-full rounded" alt="A robot heading into the EU market" />
 
-# Secure by design
-
-<div class="subtitle mt-4">Based on risk: no known exploitable vulnerabilities, secure defaults, protected data, secure updates.<br>Meet the requirements before shipping and document them for CE marking.</div>
+</div>
 
 ---
-layout: center
-class: text-center
----
 
-# Security throughout the product lifecycle
+# Security becomes part of the CE mark
 
-<div class="subtitle mt-4">Set the support period from expected use and provide security updates throughout.<br>Usually at least five years; shorter only when expected use is shorter.</div>
+<div class="grid grid-cols-[1fr_1.4fr] gap-14 items-center mt-10">
 
----
-layout: center
-class: text-center
----
+<svg viewBox="0 0 150 100" class="w-full text-[var(--tufte-text)]" fill="currentColor" role="img" aria-label="CE mark">
+  <path d="M50,0 A50,50 0 0 0 50,100 L50,88 A38,38 0 0 1 50,12 Z" />
+  <path d="M150,0 A50,50 0 0 0 150,100 L150,88 A38,38 0 0 1 150,12 Z" />
+  <rect x="105" y="44" width="40" height="12" />
+</svg>
 
-# Manufacturer is liable
+<div class="text-2xl">
 
-<div class="subtitle mt-4">Whether the software is open source or proprietary, you are responsible for your product's security.</div>
+<v-clicks>
+
+- **Secure by design**
+- **For the entire product lifecycle**
+- **The manufacturer is liable**
+- **Open source or proprietary**
+
+</v-clicks>
+
+</div>
+
+</div>
 
 ---
 
@@ -116,7 +123,7 @@ which routes it to the coordinating CSIRT. One path, with staged updates.
 
 ---
 
-# What a manufacturer owes
+# What the CRA asks of you
 
 <DocLink href="https://www.european-cyber-resilience-act.com/Cyber_Resilience_Act_Article_13.html" label="Art. 13 · Annex I" />
 
@@ -124,10 +131,10 @@ which routes it to the coordinating CSIRT. One path, with staged updates.
 
 <v-clicks>
 
-- **A risk assessment** that determines which other requirements apply
-- **An SBOM**, machine-readable
-- **Vulnerability handling**, free of charge
-- **A support period**, declared and public
+- **Assess your product's risks.** That decides which requirements apply to you.
+- **Keep a machine-readable SBOM** of everything you ship.
+- **Fix vulnerabilities** and ship security updates at no cost to your customers.
+- **Declare a support period** and tell buyers when it ends.
 
 </v-clicks>
 
@@ -384,7 +391,7 @@ Zephyr sensors and a Python service, then tried to do CRA-style vulnerability ma
 | **Docker / BuildKit** | image digest | SBOM attestation | image scanners |
 | **Nix** | lockfile + derivation closure | external tooling | external tooling |
 | **Yocto** | pinned layers + recipes | SPDX by default | `cve-check` |
-| **conda / Pixi** | `pixi.lock` | external tooling | external tooling |
+| **conda / Pixi** | `pixi.lock` | `pixi-sbom` | `pixi-audit` |
 
 </div>
 
