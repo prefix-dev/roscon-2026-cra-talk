@@ -60,15 +60,15 @@ If your robot has software and a data connection, it is in scope.
 
 # Security becomes part of the CE mark
 
-<div class="grid grid-cols-[1fr_1.4fr] gap-14 items-center mt-10">
+<div class="grid grid-cols-[1fr_1.8fr] gap-14 items-center mt-10">
 
-<svg viewBox="0 0 150 100" class="w-full text-[var(--tufte-text)]" fill="currentColor" role="img" aria-label="CE mark">
+<svg viewBox="0 0 150 100" class="w-4/5 mx-auto text-[var(--tufte-text)]" fill="currentColor" role="img" aria-label="CE mark">
   <path d="M50,0 A50,50 0 0 0 50,100 L50,88 A38,38 0 0 1 50,12 Z" />
   <path d="M150,0 A50,50 0 0 0 150,100 L150,88 A38,38 0 0 1 150,12 Z" />
   <rect x="105" y="44" width="40" height="12" />
 </svg>
 
-<div class="text-2xl">
+<div class="text-3xl">
 
 <v-clicks>
 
@@ -78,6 +78,13 @@ If your robot has software and a data connection, it is in scope.
 - **Open source or proprietary**
 
 </v-clicks>
+
+<div v-click class="mt-8 text-base text-[var(--tufte-muted)]">
+
+Top tier of fines: **15M EUR or 2.5%** of worldwide annual turnover,
+whichever is higher. (Art. 64)
+
+</div>
 
 </div>
 
@@ -108,18 +115,16 @@ and a declared support period. Products need CRA conformity to carry a CE mark a
 
 </div>
 
-<div v-click class="mt-10 pt-5 border-t border-[var(--tufte-rule)] border-opacity-20">
+<!--
+Reporting also covers products already on the market. Other requirements apply
+to them only after a substantial modification (Art. 69(2), 69(3)).
 
-**Reporting** also covers products already on the market. Other requirements apply
-to them only after a substantial modification. <span class="text-sm text-[var(--tufte-muted)]">(Art. 69(2), 69(3))</span>
+What: an actively exploited vulnerability or a severe incident.
+Early warning in 24 h, follow-up in 72 h, final report later (Art. 14).
 
-**What:** an actively exploited vulnerability or a severe incident.
-Early warning in 24 h, follow-up in 72 h, final report later. <span class="text-sm text-[var(--tufte-muted)]">(Art. 14)</span>
-
-**Where:** ENISA's <a href="https://www.enisa.europa.eu/topics/product-security/single-reporting-platform-srp">Single Reporting Platform</a>,
-which routes it to the coordinating CSIRT. One path, with staged updates.
-
-</div>
+Where: ENISA's Single Reporting Platform, which routes it to the coordinating
+CSIRT. One path, with staged updates.
+-->
 
 ---
 
@@ -137,22 +142,6 @@ which routes it to the coordinating CSIRT. One path, with staged updates.
 - **Declare a support period** and tell buyers when it ends.
 
 </v-clicks>
-
-</div>
-
----
-layout: center
-class: text-center
----
-
-# If you ship the robot,<br>you are the manufacturer.
-
-<div class="subtitle mt-4">Including the code you did not write.</div>
-
-<div v-click class="callout mt-10 max-w-xl mx-auto text-left">
-
-Top tier of fines: **15M EUR or 2.5%** of worldwide annual turnover,
-whichever is higher. <span class="text-[var(--tufte-muted)]">(Art. 64)</span>
 
 </div>
 
@@ -270,6 +259,33 @@ discover** VEX documents.
 </div>
 
 ---
+
+# A three-SBOM test
+
+<DocLink href="https://fosdem.org/2026/schedule/event/7YG9H7-embedded-product-with-three-sboms/" label="FOSDEM 2026" />
+
+<div class="text-sm mt-2 text-[var(--tufte-muted)]">
+
+Marta Rybczynska built a deliberately <em>simple</em> three-processor device, running Yocto Linux,
+Zephyr sensors and a Python service, then tried to do CRA-style vulnerability management on it.
+
+</div>
+
+<div class="mt-4 table-grow">
+
+| Step | Result |
+|---|---|
+| CycloneDX from the Python service | ✅ imported fine |
+| SPDX 3.0 from Yocto | ❌ scanner won't take it |
+| SPDX 2.3 from Zephyr <span class="text-[var(--tufte-muted)]">(tag:value)</span> | ❌ format unsupported |
+| Convert via `pyspdxtools` | ❌ no luck |
+| Convert via `syft` | ⚠️ experimental, worked |
+| Yocto SPDX 3.0 to CycloneDX | ❌ no converter found in this test |
+| Downgrade to SPDX 2.2, loop-convert, merge | ✅ finally |
+
+</div>
+
+---
 layout: center
 class: text-center
 ---
@@ -317,65 +333,19 @@ rest of the support period if that is longer. <span class="text-sm text-[var(--t
 </div>
 
 ---
-layout: center
-class: text-center
----
 
-# One robot, many bills of materials
+# Why this is hard for ROS
 
-<div class="subtitle mt-4">Linux, ROS, Python, C++, fleet backend, microcontrollers.</div>
+<div class="mt-10 text-2xl max-w-3xl">
 
----
-layout: center
-class: text-center
----
+<v-clicks>
 
-# No lockfile in the classic path
+- **Many bills of materials**: Linux, ROS, Python, C++, fleet backend, microcontrollers
+- **No lockfile in the classic path.** Rebuild that image in 2029, from what?
+- **Multiple identifiers**: `nav2`, `ros-jazzy-nav2`, `navigation2`, the name in a CVE
+- **Invisible vendor patches** that keep the upstream name and version
 
-<div class="subtitle mt-4">No single file describes the environment you actually run.<br>Rebuild that image in 2029, from what?</div>
-
----
-layout: center
-class: text-center
----
-
-# Multiple identifiers
-
-<div class="subtitle mt-4"><code>nav2</code>, <code>ros-jazzy-nav2</code>, <code>navigation2</code>, the name in a CVE</div>
-
----
-layout: center
-class: text-center
----
-
-# Vendor patches can be invisible
-
-<div class="subtitle mt-4">A downstream patch may keep the upstream name and version, so the SBOM cannot distinguish it.</div>
-
----
-
-# A three-SBOM test
-
-<DocLink href="https://fosdem.org/2026/schedule/event/7YG9H7-embedded-product-with-three-sboms/" label="FOSDEM 2026" />
-
-<div class="text-sm mt-2 text-[var(--tufte-muted)]">
-
-Marta Rybczynska built a deliberately <em>simple</em> three-processor device, running Yocto Linux,
-Zephyr sensors and a Python service, then tried to do CRA-style vulnerability management on it.
-
-</div>
-
-<div class="mt-4 table-grow">
-
-| Step | Result |
-|---|---|
-| CycloneDX from the Python service | ✅ imported fine |
-| SPDX 3.0 from Yocto | ❌ scanner won't take it |
-| SPDX 2.3 from Zephyr <span class="text-[var(--tufte-muted)]">(tag:value)</span> | ❌ format unsupported |
-| Convert via `pyspdxtools` | ❌ no luck |
-| Convert via `syft` | ⚠️ experimental, worked |
-| Yocto SPDX 3.0 to CycloneDX | ❌ no converter found in this test |
-| Downgrade to SPDX 2.2, loop-convert, merge | ✅ finally |
+</v-clicks>
 
 </div>
 
@@ -387,51 +357,21 @@ Zephyr sensors and a Python service, then tried to do CRA-style vulnerability ma
 
 | | Environment identity | SBOM path | Vulnerability data |
 |---|---|---|---|
-| **Debian / `rosdep`** | no standard environment lock | external tooling | distro trackers |
-| **Docker / BuildKit** | image digest | SBOM attestation | image scanners |
-| **Nix** | lockfile + derivation closure | external tooling | external tooling |
-| **Yocto** | pinned layers + recipes | SPDX by default | `cve-check` |
+| **Debian / `rosdep`** | no standard environment lock | `syft` | Debian / Ubuntu trackers |
+| **Docker / BuildKit** | image digest | BuildKit attestation | Docker Scout |
+| **Nix** | lockfile + derivation closure | `sbomnix` | `vulnix` |
+| **Yocto** | pinned layers + recipes | `create-spdx` | `cve-check` |
 | **conda / Pixi** | `pixi.lock` | `pixi-sbom` | `pixi-audit` |
 
 </div>
 
-<div v-click class="mt-5 text-sm">
-
+<!--
 These tools solve different layers of the problem. The CRA does not require a
 lockfile or reproducible build; both help produce and maintain an accurate SBOM.
 
-</div>
-
-<div v-click class="mt-3 text-sm text-[var(--tufte-muted)]">
-
 In the FOSDEM test, conversion lost package names and CPEs. Dependency-Track then
-reported no Linux kernel CVEs. **Format conversion can silently damage matching.**
-
-</div>
-
----
-
-# Ideas for the ecosystem
-
-<div class="mt-4 max-w-3xl">
-
-Yocto and Zephyr already generate build metadata. ROS has pieces of the same
-infrastructure, but no shared workflow.
-
-</div>
-
-<div class="mt-8">
-
-<v-clicks>
-
-- **Build-time SBOMs** from `colcon`, generated for every workspace
-- **Stable identifiers**: a ROS-level PURL linked to the Debian, conda or source package
-- **A named steward** for vulnerability intake, advisories and CVE coordination
-- **Richer metadata**: licenses, origins, `rosdep` mappings
-
-</v-clicks>
-
-</div>
+reported no Linux kernel CVEs. Format conversion can silently damage matching.
+-->
 
 ---
 
@@ -474,44 +414,56 @@ also need a distinct version, hash or SBOM pedigree.
 <div v-click class="mt-6 text-sm text-[var(--tufte-muted)]">
 
 The proposal only works if ROS defines canonical rules for names, versions and
-how ROS distributions are represented.
+how ROS distributions are represented. Alongside it, ROS needs build-time SBOMs
+from `colcon` and richer metadata: licenses, origins, `rosdep` mappings.
 
 </div>
 
 ---
 
-# What you have to do
+# ROS needs an open-source steward
 
-<div class="grid grid-cols-2 gap-10 mt-8">
+<DocLink href="https://www.european-cyber-resilience-act.com/Cyber_Resilience_Act_Article_24.html" label="Art. 3(14) · Art. 24" />
 
-<div>
+<div class="callout mt-8 max-w-3xl text-lg">
 
-### Today
+**Open-source software steward:** an organization, not a manufacturer, that
+supports open-source software intended for commercial use on a sustained basis.
+
+</div>
+
+<div class="mt-8 text-xl max-w-3xl">
+
+<v-clicks>
+
+- **Light obligations**: a cybersecurity policy, cooperation with authorities, reporting actively exploited vulnerabilities
+- **No administrative fines** for stewards <span class="text-sm text-[var(--tufte-muted)]">(Art. 64(10))</span>
+
+</v-clicks>
+
+</div>
+
+<div v-click class="mt-8 text-xl max-w-3xl">
+
+**OSRF is the natural steward.** What ROS is missing is **one place for vulnerabilities**:
+a place to report them, advisories to track them, and a feed that scanners can read.
+
+</div>
+
+---
+
+# What you have to do today
+
+<div class="mt-10 text-2xl max-w-3xl">
 
 <v-clicks>
 
 - **Know your reporting path**: EU Login, ENISA's Single Reporting Platform, your national CSIRT
-- **Set your support period** from expected use, normally at least five years
+- **Set your support period** from expected use
+- **Start documenting and keep it for 10 years**: SBOMs, technical documentation, declaration of conformity <span class="text-sm text-[var(--tufte-muted)]">(Art. 13(13))</span>
 - **Pin and archive what you ship**, so rebuilding does not depend on live repositories
 
 </v-clicks>
-
-</div>
-
-<div>
-
-### By 11 Dec 2027
-
-<v-clicks>
-
-- **A risk assessment** that determines which requirements apply
-- **An SBOM**, machine-readable, from what you actually ship
-- **Vulnerability handling**: monitor, patch, disclose, free of charge
-- **CE conformity** with the technical documentation to back it
-
-</v-clicks>
-
-</div>
 
 </div>
 
@@ -519,6 +471,8 @@ how ROS distributions are represented.
 
 Slides, sources and the full research notes:
 <a href="https://github.com/prefix-dev/roscon-2026-cra-talk">github.com/prefix-dev/roscon-2026-cra-talk</a>
+
+Free 90-minute course: <a href="https://training.linuxfoundation.org/express-learning/understanding-the-eu-cyber-resilience-act-cra-lfel1001/">Understanding the EU Cyber Resilience Act (LFEL1001)</a>, Linux Foundation
 
 </div>
 

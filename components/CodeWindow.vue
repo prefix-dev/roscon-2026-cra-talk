@@ -39,12 +39,13 @@ const logo = computed(() => {
 
 <style scoped>
 .codewin {
-  background: #f5f5e9;
+  /* Dark window for contrast against the cream page. */
+  background: #1e1e1c;
   border-radius: 6px;
   overflow: hidden;
   font-family: var(--tufte-mono);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(0, 0, 0, 0.4);
   margin-top: 0.5rem;
   /* Hug the content height — don't stretch to fill a grid/flex row, which
    * would leave empty background below the code. */
@@ -55,13 +56,12 @@ const logo = computed(() => {
   align-items: center;
   gap: 0.45rem;
   padding: 0.4rem 0.75rem;
-  /* cooler, flatter header than the terminal's warm tan bar */
-  background: #edeee8;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  background: #2a2a27;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 .codewin-icon {
   flex-shrink: 0;
-  color: #999;
+  color: #8a8a82;
 }
 .codewin-logo {
   flex-shrink: 0;
@@ -73,13 +73,13 @@ const logo = computed(() => {
   flex: 1;
   text-align: left;
   font-size: 0.82rem;
-  color: #555;
+  color: #c8c8bf;
   letter-spacing: 0.01em;
 }
 /* Clickable filename — subtle until hovered, so it doesn't shout "link". */
 .codewin-name--link {
   text-decoration: underline;
-  text-decoration-color: rgba(0, 0, 0, 0.18);
+  text-decoration-color: rgba(255, 255, 255, 0.25);
   text-underline-offset: 2px;
   cursor: pointer;
 }
@@ -88,8 +88,8 @@ const logo = computed(() => {
   text-decoration-color: var(--tufte-accent);
 }
 .codewin-body {
-  padding: 0.15rem 0.4rem;
-  color: #222;
+  padding: 0.35rem 0.6rem;
+  color: #eeeee6;
   font-size: 0.78rem;
   line-height: 1.6;
 }
@@ -97,5 +97,14 @@ const logo = computed(() => {
  * the window edges. */
 .codewin-body :deep(pre) {
   padding: 0 !important;
+}
+/* The deck is light-schema, so Shiki paints light-theme token colors.
+ * Swap to the dark-theme colors Shiki emits alongside them. */
+.codewin-body :deep(.shiki),
+.codewin-body :deep(.shiki span) {
+  color: var(--shiki-dark, #eeeee6) !important;
+}
+.codewin-body :deep(.line::before) {
+  color: #6b6b64 !important;
 }
 </style>
